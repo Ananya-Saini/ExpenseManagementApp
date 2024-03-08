@@ -67,7 +67,7 @@ const addTransaction = async (req, res) => {
     // const date = req.body.Date;
     // const reference = req.body.reference;
     // const description = req.body.description;
-    // const transaction = new transactionModel({amount, type, category, date, reference, description});
+    // const transaction = new transactionModel({userId, amount, type, category, date, reference, description});
     // const result = await transaction.save();
     await newTransaction.save()
     res.status(201).send('Transaction Added')

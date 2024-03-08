@@ -4,10 +4,10 @@ const mongoose = require("mongoose");
 
 // Design user schema
 const userSchema = new mongoose.Schema({
-  _id: {
-    type: String,
-    // default: nanoid(7),
-  },
+  // _id: {
+  //   type: String,
+  //   // default: nanoid(7),
+  // },
   // uniqueId: {
   //   type: String,
   //   required: true,
