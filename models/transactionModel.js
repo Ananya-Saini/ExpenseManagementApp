@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-
+const Schema = mongoose.Schema;
 const transactionSchema = new mongoose.Schema(
   {
-    // userid: {
-    //   type: String,
-    //   required: true,
-    // },
+    userid: {
+      type: String,
+			required: [true, "userid is required"],
+    },
     amount: {
       type: Number,
       required: [true, "amount is required"],
@@ -26,7 +26,7 @@ const transactionSchema = new mongoose.Schema(
       required: [true, "description is required"],
     },
     date: {
-      type: Date,
+      type: String,
       required: [true, "date is required"],
     },
   },
