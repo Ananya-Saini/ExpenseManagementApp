@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, Form, Input, Select, message } from 'antd'
+import React, { useState, useEffect } from 'react';
+import { Modal, Form, Input, Select, message, Table } from 'antd'
 import Layout from '../components/layouts/layout';
 import axios from 'axios';
 import Spinner from '../components/layouts/Spinner';
@@ -7,13 +7,58 @@ import Spinner from '../components/layouts/Spinner';
 const HomePage = () => {
   const [showModel, setShowModel] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [allTransaction, setAllTransaction] = useState([])
+  const [frequency, setFrequency] = useState('7')
+  // table date
+  const columns = [
+    {
+      title: 'Date',
+      dataIndex: 'date'
+    },
+    {
+      title: 'Amount',
+      dataIndex: 'amount'
+    },
+    {
+      title: 'Type',
+      dataIndex: 'type'
+    },
+    {
+      title: 'Category',
+      dataIndex: 'category'
+    },
+    {
+      title: 'Reference',
+      dataIndex: 'reference'
+    },
+    {
+      title: 'Actions',
+    },
+  ]
+  //useEffect Hook
+  useEffect(() => {
+    const getAllTransaction = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem('user'))
+        setLoading(true)
+        const res = await axios.post('/transactions/get-transaction', { userid: user.userid, frequency })
+        setLoading(false)
+        setAllTransaction(res.data)
+        console.log(res.data)
+      } catch (error) {
+        console.log(error)
+        message.error("Fetch issue!")
+      }
+    };
+    getAllTransaction();
+  }, [frequency]);
 
+  //Form Handling
   const handleSubmit = async (value) => {
     try {
       const user = JSON.parse(localStorage.getItem('user'))
-      console.log('home page par user ki id: ', user.userId)
       setLoading(true)
-      await axios.post('/transactions/add-transaction', {userid: user.userId, ...value })
+      await axios.post('/transactions/add-transaction', { userid: user.userid, ...value })
       setLoading(false)
       message.success("Trasaction added successfully")
       setShowModel(false)
@@ -27,12 +72,22 @@ const HomePage = () => {
     <Layout>
       {loading && <Spinner />}
       <div className='filters'>
-        <div>range filters</div>
+        <div>
+          <h6>Select Frequency</h6>
+          <Select value={frequency} onChange={(values) => setFrequency(values)}>
+            <Select.Option value='7'>LAST 1 Week</Select.Option>
+            <Select.Option value='30'>LAST 1 Month</Select.Option>
+            <Select.Option value='365'>LAST 1 Year</Select.Option>
+            <Select.Option value='custom'>Custom</Select.Option>
+          </Select>
+        </div>
         <div>
           <button className='btn btn-primary' onClick={() => setShowModel(true)}>Add New</button>
         </div>
       </div>
-      <div className='content'></div>
+      <div className='content'>
+        <Table columns={columns} dataSource={allTransaction}/>
+      </div>
       <Modal title="Add Transaction" open={showModel} onCancel={() => setShowModel(false)} footer={false}>
         <Form layout="vertical" onFinish={handleSubmit}>
           <Form.Item label="Amount" name="amount">

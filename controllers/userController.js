@@ -14,7 +14,7 @@ const loginController = async (req, res) => {
             res.status(200).json({
                 success:true,
                 ...user,
-                userId: user._id,
+                userid: user._id,
             });
         }
     } catch (error) {

@@ -12,7 +12,7 @@ const Login = () => {
             setLoading(true)
             const { data } = await axios.post('/users/login', values)
             localStorage.setItem('user', JSON.stringify({
-                userId: data.userId,
+                userid: data.userid,
                 ...data,
                 password: '',
             }));
