@@ -2,12 +2,22 @@ const transactionModel = require("../models/transactionModel");
 const moment = require("moment");
 const getAllTransaction = async (req, res) => {
   try {
-    const { frequency } = req.body;
+    const { frequency, selectedDate, type} = req.body;
     const transactions = await transactionModel.find({
-      date: {
-        $gt: moment().subtract(Number(frequency), "d").toDate(),
-      },
+      ...(frequency !== "custom"
+        ? {
+            date: {
+              $gte: moment().subtract(Number(frequency), "d").toDate(),
+            },
+          }
+        : {
+            date: {
+              $gte: selectedDate[0],
+              $lte: selectedDate[1],
+            },
+          }),
       userid: req.body.userid,
+      ...(type !== "all" && { type }),
     });
     // const transactions = await transactionModel.find({
     //   ...(frequency !== "custom"
@@ -25,11 +35,11 @@ const getAllTransaction = async (req, res) => {
     //   userid: req.body.userid,
     //   ...(type !== "all" && { type }),
     // });
-    // const transactions = await transactionModel.find({userid:req.body.userd})
+    // const transactions = await transactionModel.find({userid:req.body.userid})
     res.status(200).json(transactions);
   } catch (error) {
     console.log(error);
-    res.status(500).json(erorr);
+    res.status(500).json(error);
   }
 };
 

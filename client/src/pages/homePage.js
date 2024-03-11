@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Form, Input, Select, message, Table } from 'antd'
+import { Modal, Form, Input, Select, message, Table, DatePicker} from 'antd'
 import Layout from '../components/layouts/layout';
 import axios from 'axios';
 import Spinner from '../components/layouts/Spinner';
+import moment from "moment";
+const {RangePicker} = DatePicker;
 
 const HomePage = () => {
   const [showModel, setShowModel] = useState(false)
   const [loading, setLoading] = useState(false)
   const [allTransaction, setAllTransaction] = useState([])
   const [frequency, setFrequency] = useState('7')
+  const [selectedDate, setSelectedDate] = useState([])
+  const [type, setType] = useState("all")
   // table date
   const columns = [
     {
       title: 'Date',
-      dataIndex: 'date'
+      dataIndex: 'date',
+      render: (text) => <span>{moment(text).format('YYYY-MM-DD')}</span>
     },
     {
       title: 'Amount',
@@ -29,7 +34,7 @@ const HomePage = () => {
     },
     {
       title: 'Reference',
-      dataIndex: 'reference'
+      dataIndex: 'refrence'
     },
     {
       title: 'Actions',
@@ -41,7 +46,7 @@ const HomePage = () => {
       try {
         const user = JSON.parse(localStorage.getItem('user'))
         setLoading(true)
-        const res = await axios.post('/transactions/get-transaction', { userid: user.userid, frequency })
+        const res = await axios.post('/transactions/get-transaction', { userid: user.userid, frequency , selectedDate, type,})
         setLoading(false)
         setAllTransaction(res.data)
         console.log(res.data)
@@ -51,7 +56,7 @@ const HomePage = () => {
       }
     };
     getAllTransaction();
-  }, [frequency]);
+  }, [frequency, selectedDate, type]);
 
   //Form Handling
   const handleSubmit = async (value) => {
@@ -79,6 +84,19 @@ const HomePage = () => {
             <Select.Option value='30'>LAST 1 Month</Select.Option>
             <Select.Option value='365'>LAST 1 Year</Select.Option>
             <Select.Option value='custom'>Custom</Select.Option>
+          </Select>
+          {frequency === "custom" && (
+            <RangePicker
+            value={selectedDate} onChange={(values) => setSelectedDate(values)}
+            />
+          )}
+        </div>
+        <div>
+          <h6>Select Type</h6>
+          <Select value={type} onChange={(values) => setType(values)}>
+            <Select.Option value='all'>All</Select.Option>
+            <Select.Option value='income'>Income</Select.Option>
+            <Select.Option value='expense'>Expense</Select.Option>
           </Select>
         </div>
         <div>
@@ -115,7 +133,7 @@ const HomePage = () => {
           <Form.Item label="date" name="date">
             <Input type="date" />
           </Form.Item>
-          <Form.Item label="Reference" name="reference">
+          <Form.Item label="Reference" name="refrence">
             <Input type="text" />
           </Form.Item>
           <Form.Item label="Description" name="description">
