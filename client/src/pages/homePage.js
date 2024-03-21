@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Form, Input, Select, message, Table, DatePicker} from 'antd'
+import { Modal, Form, Input, Select, message, Table, DatePicker } from 'antd'
+import { AreaChartOutlined, UnorderedListOutlined , EditOutlined, DeleteOutlined} from '@ant-design/icons';
 import Layout from '../components/layouts/layout';
 import axios from 'axios';
-import Spinner from '../components/layouts/Spinner';
+import Spinner from '../components/Spinner';
 import moment from "moment";
-const {RangePicker} = DatePicker;
+import Analytics from '../components/Analytics';
+const { RangePicker } = DatePicker;
 
 const HomePage = () => {
   const [showModel, setShowModel] = useState(false)
@@ -13,6 +15,8 @@ const HomePage = () => {
   const [frequency, setFrequency] = useState('7')
   const [selectedDate, setSelectedDate] = useState([])
   const [type, setType] = useState("all")
+  const [viewData, setViewData] = useState('table')
+  const [editable, setEditable] = useState(null)
   // table date
   const columns = [
     {
@@ -38,6 +42,15 @@ const HomePage = () => {
     },
     {
       title: 'Actions',
+      render : (text, record) => (
+        <div>
+          <EditOutlined onClick={() => {
+            setEditable (record)
+            setShowModel(true)
+          }}/>
+          <DeleteOutlined className='mx-2' onClick={() => {handleDelete(record)}}/>
+        </div>
+      )
     },
   ]
   //useEffect Hook
@@ -46,7 +59,7 @@ const HomePage = () => {
       try {
         const user = JSON.parse(localStorage.getItem('user'))
         setLoading(true)
-        const res = await axios.post('/transactions/get-transaction', { userid: user.userid, frequency , selectedDate, type,})
+        const res = await axios.post('/transactions/get-transaction', { userid: user.userid, frequency, selectedDate, type, })
         setLoading(false)
         setAllTransaction(res.data)
         console.log(res.data)
@@ -58,15 +71,40 @@ const HomePage = () => {
     getAllTransaction();
   }, [frequency, selectedDate, type]);
 
+  const handleDelete = async(record) => {
+    try{
+      setLoading(true)
+      await axios.post('/transactions/delete-transaction', {transactionId:record._id})
+      setLoading(false)
+      message.success('Transaction Deleted')
+    }catch(error){
+      setLoading(false)
+      console.log(error)
+      message.error('Unable to delete!')
+    }
+  }
   //Form Handling
   const handleSubmit = async (value) => {
     try {
       const user = JSON.parse(localStorage.getItem('user'))
       setLoading(true)
-      await axios.post('/transactions/add-transaction', { userid: user.userid, ...value })
+      if(editable){
+        console.log(user.userid)
+        await axios.post('/transactions/edit-transaction', { payload: {
+          ...value,
+          userid: user.userid
+        },
+        transactionId: editable._id
+      })
+        setLoading(false)
+        message.success("Transaction Updated successfully")
+      }else{
+        await axios.post('/transactions/add-transaction', { userid: user.userid, ...value })
       setLoading(false)
-      message.success("Trasaction added successfully")
+      message.success("Transaction added successfully")
+      }
       setShowModel(false)
+      setEditable(null)
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -87,7 +125,7 @@ const HomePage = () => {
           </Select>
           {frequency === "custom" && (
             <RangePicker
-            value={selectedDate} onChange={(values) => setSelectedDate(values)}
+              value={selectedDate} onChange={(values) => setSelectedDate(values)}
             />
           )}
         </div>
@@ -99,15 +137,23 @@ const HomePage = () => {
             <Select.Option value='expense'>Expense</Select.Option>
           </Select>
         </div>
+        <div className='switch-icons'>
+          <UnorderedListOutlined className={`mx-2 ${viewData === 'table' ? 'active-icon' : 'inactive-icon'}`} onClick={() => setViewData('table')} />
+          <AreaChartOutlined className={`mx-2 ${viewData === 'analytics' ? 'active-icon' : 'inactive-icon'}`} onClick={() => setViewData('analytics')} />
+        </div>
         <div>
           <button className='btn btn-primary' onClick={() => setShowModel(true)}>Add New</button>
         </div>
       </div>
       <div className='content'>
-        <Table columns={columns} dataSource={allTransaction}/>
+        {viewData === 'table' ?
+          <Table columns={columns} dataSource={allTransaction} />
+          : <Analytics allTransaction={allTransaction} />
+        }
+
       </div>
-      <Modal title="Add Transaction" open={showModel} onCancel={() => setShowModel(false)} footer={false}>
-        <Form layout="vertical" onFinish={handleSubmit}>
+      <Modal title={editable? "Edit Transaction" : "Add Transaction"} open={showModel} onCancel={() => setShowModel(false)} footer={false}>
+        <Form layout="vertical" onFinish={handleSubmit} initialValues={editable}>
           <Form.Item label="Amount" name="amount">
             <Input type="text" />
           </Form.Item>

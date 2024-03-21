@@ -45,7 +45,7 @@ const getAllTransaction = async (req, res) => {
 
 const deleteTransaction = async (req, res) => {
   try {
-    await transactionModel.findOneAndDelete({ _id: req.body.transacationId });
+    await transactionModel.findOneAndDelete({ _id: req.body.transactionId });
     res.status(200).send("Transaction Deleted!");
   } catch (error) {
     console.log(error);
@@ -55,10 +55,10 @@ const deleteTransaction = async (req, res) => {
 const editTransaction = async (req, res) => {
   try {
     await transactionModel.findOneAndUpdate(
-      { _id: req.body.transacationId },
+      { _id: req.body.transactionId },
       req.body.payload
     );
-    res.status(200).send("Edit SUccessfully");
+    res.status(200).send("Edited SUccessfully");
   } catch (error) {
     console.log(error);
     res.status(500).json(error);

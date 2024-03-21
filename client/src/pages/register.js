@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Form, Input, message } from 'antd'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import axios from 'axios';
-import Spinner from '../components/layouts/Spinner';
+import Spinner from '../components/Spinner';
 
 const Register = () => {
     const navigate = useNavigate();
