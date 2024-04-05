@@ -66,3 +66,11 @@
   font-size: 1rem;
   transition: all 0.2s ease-in-out;
 }
+
+.ant-table-thead > tr > th {
+  background-color: #018bfa;
+  color: white;
+  /* Add border styles */
+  border: 1px solid white;
+}
+

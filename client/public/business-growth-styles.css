@@ -1,0 +1,168 @@
+svg#freepik_stories-business-growth:not(.animated) .animable {
+    opacity: 0;
+}
+
+svg#freepik_stories-business-growth.animated #freepik--background-complete--inject-41 {
+    animation: 1.5s Infinite linear floating;
+    animation-delay: 0s;
+}
+
+svg#freepik_stories-business-growth.animated #freepik--Shadow--inject-41 {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) fadeIn;
+    animation-delay: 0s;
+}
+
+svg#freepik_stories-business-growth.animated #eldaqrrcwjte {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0s;
+}
+
+svg#freepik_stories-business-growth.animated #el2f6ijncos2t {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.08333333333333333s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #elkbinuyjhpek {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.16666666666666666s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #elou3u71yfffk {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.25s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #elkkkh9s4wkr {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.3333333333333333s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #eljmej92d3z6 {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.41666666666666663s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #el27bbxflakfw {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.5s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #el0eo95jyznfpq {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.5833333333333333s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #elfamgje8qh88 {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.6666666666666666s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #elze2kv363ch {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.75s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #el8yb51k9kdlc {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.8333333333333333s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #el7i3q40ibzx {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn;
+    animation-delay: 0.9166666666666666s;
+    opacity: 0
+}
+
+svg#freepik_stories-business-growth.animated #freepik--Coins--inject-41 {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) zoomIn, 1.5s Infinite linear wind;
+    animation-delay: 0s, 1s;
+}
+
+svg#freepik_stories-business-growth.animated #freepik--Arrows--inject-41 {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) slideUp;
+    animation-delay: 0s;
+}
+
+svg#freepik_stories-business-growth.animated #freepik--Gears--inject-41 {
+    animation: 1.5s Infinite linear floating;
+    animation-delay: 0s;
+}
+
+svg#freepik_stories-business-growth.animated #freepik--Character--inject-41 {
+    animation: 1s 1 forwards cubic-bezier(.36, -0.01, .5, 1.38) slideUp;
+    animation-delay: 0s;
+}
+
+@keyframes floating {
+    0% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes wind {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(1deg);
+    }
+
+    75% {
+        transform: rotate(-1deg);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: inherit;
+    }
+}

@@ -53,6 +53,19 @@ const HomePage = () => {
       )
     },
   ]
+
+  const customHeader = ({ columns }) => {
+    return (
+      // Apply styles here
+      <thead style={{ backgroundColor: '#018bfa', color: 'white' }}>
+        <tr>
+          {columns.map((col) => (
+            <th key={col.dataIndex}>{col.title}</th>
+          ))}
+        </tr>
+      </thead>
+    );
+  };
   //useEffect Hook
   useEffect(() => {
     const getAllTransaction = async () => {
@@ -114,13 +127,13 @@ const HomePage = () => {
   return (
     <Layout>
       {loading && <Spinner />}
-      <div className='filters'>
-        <div>
-          <h6>Select Frequency</h6>
-          <Select value={frequency} onChange={(values) => setFrequency(values)}>
-            <Select.Option value='7'>LAST 1 Week</Select.Option>
-            <Select.Option value='30'>LAST 1 Month</Select.Option>
-            <Select.Option value='365'>LAST 1 Year</Select.Option>
+      <div className='filters' style={{display: 'flex'}}>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <h6 style={{marginRight: '1rem'}}>Select Frequency</h6>
+          <Select style={{border: '1px solid black', borderRadius: '5px'}} value={frequency} onChange={(values) => setFrequency(values)}>
+            <Select.Option value='7'>Last 1 Week</Select.Option>
+            <Select.Option value='30'>Last 1 Month</Select.Option>
+            <Select.Option value='365'>Last 1 Year</Select.Option>
             <Select.Option value='custom'>Custom</Select.Option>
           </Select>
           {frequency === "custom" && (
@@ -129,9 +142,9 @@ const HomePage = () => {
             />
           )}
         </div>
-        <div>
-          <h6>Select Type</h6>
-          <Select value={type} onChange={(values) => setType(values)}>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <h6 style={{marginRight: '1rem'}}>Select Type</h6>
+          <Select style={{border: '1px solid black', borderRadius: '5px', width: '5rem'}} value={type} onChange={(values) => setType(values)}>
             <Select.Option value='all'>All</Select.Option>
             <Select.Option value='income'>Income</Select.Option>
             <Select.Option value='expense'>Expense</Select.Option>
@@ -147,7 +160,9 @@ const HomePage = () => {
       </div>
       <div className='content'>
         {viewData === 'table' ?
-          <Table columns={columns} dataSource={allTransaction} />
+          <Table columns={columns} dataSource={allTransaction} components={{
+            header: customHeader,
+          }} />
           : <Analytics allTransaction={allTransaction} />
         }
 

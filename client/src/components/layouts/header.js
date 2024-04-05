@@ -19,7 +19,7 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-light">
+      <nav className="navbar navbar-expand-lg sticky-top" style={{backgroundColor: '#018bfa', color: 'white', boxShadow: '6px 3px 6px 2px rgba(0, 0, 0, 0.3)', }}>
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -33,16 +33,17 @@ const Header = () => {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <Link className="navbar-brand" to="/">
+            <img src="Logo.png" alt='$' style={{height: "6vh", top: '0px', padding: '0rem 1rem'}}></img>
+            <Link className="navbar-brand h5" to="/" style={{color: 'white', textAlign: 'center', paddingBottom: '0'}}>
               Expense Management
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                {/* {" "} */}
-                {/* <p className="nav-item"> */}
-                  {loginUser && loginUser.name}
-                  {/* </p> */}
-                {/* {" "} */}
+                {" "}
+                <p className="nav-item navbar-brand m-0 lead" style={{color: 'white', paddingRight: '1rem'}}> 
+                  {loginUser && loginUser._doc.name}
+                  </p>
+                {" "}
               </li>
               <li className="nav-item">
                 <button className="btn btn-primary" onClick={logoutHandler}>

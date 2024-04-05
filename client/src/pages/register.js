@@ -28,29 +28,36 @@ const Register = () => {
         }
     }, [navigate]);
     return (
+        // <a href="https://storyset.com/online">Online illustrations by Storyset</a>
         <>
-            <div className='register-page'>
-                {loading && <Spinner />}
-                <Form layout="vertical" onFinish={submitHandler}>
-                    <h1>Register Form</h1>
-                    <Form.Item label="Name" name="name">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item label="Email" name="email">
-                        <Input type="email" />
-                    </Form.Item>
-                    <Form.Item label="Password" name="password">
-                        <Input type="password" />
-                    </Form.Item>
-                    <div>
-                        <div className='d-block'>
-                            <Link to="/login">Already registered? Click here to login</Link>
-                        </div>
-                        <div>
-                            <button className='btn btn-primary'>Register</button>
-                        </div>
+            <img src="Logo.png" alt="Expense Management App" style={{ height: "10vh", position: "absolute", zIndex: "10", marginLeft: "2rem" }} />
+            <div style={{ display: 'grid', gridTemplateColumns: '58% 42%' }}>
+                <img src="Register.png" alt="Login Background" style={{ width: '87%', height: '85%', marginLeft: '5rem', top: '5vh'}} />
+                <div className='register-page'>
+                    {loading && <Spinner />}
+                    <div style={{ padding: '2rem', borderRadius: '1rem', boxShadow: '5px 5px 34px 0px' }}>
+                        <Form layout="vertical" onFinish={submitHandler}>
+                            <h1 style={{ fontFamily: '"Roboto Slab", serif' }}>Come on Aboard!</h1>
+                            <Form.Item label="Name" name="name">
+                                <Input />
+                            </Form.Item>
+                            <Form.Item label="Email" name="email">
+                                <Input type="email" />
+                            </Form.Item>
+                            <Form.Item label="Password" name="password">
+                                <Input type="password" />
+                            </Form.Item>
+                            <div>
+                                <div className='d-block' style={{textAlign: 'center' }}>
+                                    <Link to="/login">Already registered? Click here to login</Link>
+                                </div>
+                                <div style={{textAlign: 'center', marginTop: '3vh' }}>
+                                    <button className='btn btn-primary' >Register</button>
+                                </div>
+                            </div>
+                        </Form>
                     </div>
-                </Form>
+                </div>
             </div>
 
         </>
