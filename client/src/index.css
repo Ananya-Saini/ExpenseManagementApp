@@ -43,3 +43,26 @@
 .inactive-icon{
   color: gray;
 }
+
+.input-box input:focus {
+  outline: double;
+  outline-width: 2px;
+  outline-color: #0d6efd;
+  outline-offset: 1.5px;
+  height: 5vh;
+}
+
+.input-box input{
+  height: 9vh;
+}
+
+.input-box label{
+  position: absolute;
+  left: 1.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
