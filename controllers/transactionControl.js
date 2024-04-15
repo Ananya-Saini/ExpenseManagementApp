@@ -58,7 +58,7 @@ const editTransaction = async (req, res) => {
       { _id: req.body.transactionId },
       req.body.payload
     );
-    res.status(200).send("Edited SUccessfully");
+    res.status(200).send("Edited Successfully");
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
@@ -66,40 +66,20 @@ const editTransaction = async (req, res) => {
 };
 
 const addTransaction = async (req, res) => {
-  // try {
-  //   // const newTransection = new transectionModel(req.body);
-  //   const newTransaction = new transactionModel(req.body);
-  //   await newTransaction.save();
-  //   res.status(201).send("Transaction Created");
-  // } catch (error) {
-  //   console.log(error);
-  //   res.status(500).json(error);
-  // }
   try {
     const newTransaction = new transactionModel(req.body);
-    // const amount = req.body.amount;
-    // const type = req.body.type;
-    // const category = req.body.category;
-    // const date = req.body.Date;
-    // const reference = req.body.reference;
-    // const description = req.body.description;
-    // const transaction = new transactionModel({userId, amount, type, category, date, reference, description});
-    // const result = await transaction.save();
     await newTransaction.save()
-    res.status(201).send('Transaction Added')
-    // res.status(201).json(newTransaction)
-    // if(!result){
-    //   res.status(404).json({
-    //     success: false,
-    //     error,
-    //   });
-    // }
-    // else res.status(201).send("Transaction Created");
+    res.status(201).send('Transaction Added');
+    // limitNotification(newTransaction.userid, newTransaction.category);
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
   }
 };
+
+// const limitNotification = ({userid, category}) => {
+
+// }
 
 module.exports = {
   getAllTransaction,

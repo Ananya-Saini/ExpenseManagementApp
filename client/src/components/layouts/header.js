@@ -19,7 +19,7 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg sticky-top" style={{backgroundColor: '#018bfa', color: 'white', boxShadow: '6px 3px 6px 2px rgba(0, 0, 0, 0.3)', }}>
+      <nav className="navbar navbar-expand-lg sticky-top" style={{ backgroundColor: '#018bfa', color: 'white', boxShadow: '6px 3px 6px 2px rgba(0, 0, 0, 0.3)', zIndex: '100', position: 'absolute', width: '100%'}}>
         <div className="container-fluid">
           <button
             className="navbar-toggler"
