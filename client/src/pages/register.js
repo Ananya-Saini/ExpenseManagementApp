@@ -44,7 +44,7 @@ const Register = () => {
                             <Form.Item label="Email" name="email">
                                 <Input type="email" />
                             </Form.Item>
-                            <Form.Item label="Password" name="password">
+                            <Form.Item label="Password" name="password" pattern=".{8,}" required title="8 characters minimum">
                                 <Input type="password" />
                             </Form.Item>
                             <div>
